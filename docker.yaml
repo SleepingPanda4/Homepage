@@ -1,0 +1,26 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/docker/
+
+# my-local-docker:
+#   host: 192.168.1.122
+#   port: 2375
+
+local-docker:
+  socket: /var/run/docker.sock
+
+# local-docker:
+#   host: 192.168.1.120
+#   port: 2375
+
+# my-remote-docker:
+#    host: 192.168.1.121
+#    port: 2375
+
+arr-docker:
+  host: 10.10.10.75
+  port: 2375
+
+unraid-server:
+  host: 10.10.10.122
+  port: 2375

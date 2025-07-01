@@ -1,0 +1,361 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+
+- Links:
+    - YouTube:
+        icon: youtube.png
+        href: youtube.com
+    - Google Sheets:
+        icon: https://images.icon-icons.com/3053/PNG/512/google_sheets_macos_bigsur_icon_190111.png
+        href: https://docs.google.com/spreadsheets/u/0/
+    - Michael Finances:
+        icon: https://images.icon-icons.com/3053/PNG/512/google_sheets_macos_bigsur_icon_190111.png
+        href: https://docs.google.com/spreadsheets/d/1SLjVyEqFdsvQ8c7qF9FBJw9uA2sHdoFFkpHgxf3oGzE/edit?gid=1865171615#gid=1865171615
+- Calendar:
+    - Media Calendar:
+        widget:
+          type: calendar
+          firstDayInWeek: sunday # optional - defaults to monday
+          view: monthly # optional - possible values monthly, agenda
+          maxEvents: 10 # optional - defaults to 10
+          showTime: true # optional - show time for event happening today - defaults to false
+          timezone: America/Chicago # optional and only when timezone is not detected properly (slightly slower performance) - force timezone for ical events (if it's the same - no change, if missing or different in ical - will be converted to this timezone)
+          integrations: # optional
+            - type: sonarr # active widget type that is currently enabled on homepage - possible values: radarr, sonarr, lidarr, readarr, ical
+              service_group: Dahl Home ARR # group name where widget exists
+              service_name: Sonarr # service name for that widget
+              color: teal # optional - defaults to pre-defined color for the service (teal for sonarr)
+              params: # optional - additional params for the service
+                unmonitored: true # optional - defaults to false, used with *arr stack
+
+- Home Network:
+    - OPNSense:
+        icon: opnsense.png
+        widget:
+          type: opnsense
+          url: https://10.10.0.1/
+          username: e+8QOVDBmn9u+eOrDWzVSuEeDulE8OqhHVWBgqVRb8afPZf8R9hvNgUusCiIXgB5gmbhonyy4q8vnAJS
+          password: mP+JD652EpCfVB8KOGenCEtEhgQPQY7e+r5eLdC5e2WXZFM4XdjCTW5YOezYswqUArLYe2T7rCCHOTbE
+          wan: wan # optional, defaults to wan
+          fields: ["cpu", "memory", "wanUpload", "wanDownload"]
+    - SpeedTest:
+        icon: si-speedtest-#141526
+        href: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:8765
+        description: What's your speed today?
+        widget:
+          type: speedtest
+          url: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:8765
+          version: 1 # optional, default is 1
+          # key: "{{HOMEPAGE_VAR_SPEEDTEST_API_KEY}}" # required for version 2
+          bitratePrecision: 3 # optional, default is 0
+    - Uptime Robot:
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/uptimerobot.svg
+        href: https://dashboard.uptimerobot.com/monitors
+        description: How are your servers?
+        widget:
+          type: uptimerobot
+          url: https://api.uptimerobot.com
+          key: m800847623-7da6f42996a14d15f56c6692
+          fields: ["sitesUp", "sitesDown"]
+    - Uptime Kuma Dockers:
+        icon: https://artifacthub.io/image/40d16b6f-97c3-4420-8881-f7a3ee357d36
+        href: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:3010/status/dockers
+        description: How are your servers?
+        widget:
+          type: uptimekuma
+          url: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:3010/
+          key: dockers
+          # fields: ["up", "down", "uptime", "incident"]
+- Home Media Server:
+    - Plex:
+        icon: plex.png
+        href: https://app.plex.tv/desktop/
+        description: Sleeping Server
+        #server: unraid-server
+        #container: Plex-Media-Server
+        #statusStyle: dot
+        widget:
+          type: plex
+          url: http://10.10.10.122:32400
+          key: "{{HOMEPAGE_VAR_PLEX_API_KEY}}"
+          enableBlocks: true # optional, defaults to false
+          enableNowPlaying: true # optional, defaults to true
+          enableUser: true # optional, defaults to false
+          showEpisodeNumber: true # optional, defaults to false
+          expandOneStreamToTwoRows: false # optional, defaults to true
+    - Tautulli:
+        icon: https://avatars.githubusercontent.com/u/34385001?v=4
+        href: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:8181/
+        description: Tautulli Server
+        server: arr-docker
+        container: tautulli
+        statusStyle: dot
+        widget:
+          type: tautulli
+          url: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:8181
+          key: "{{HOMEPAGE_VAR_TAUTULLI_API_KEY}}"
+          enableUser: true # optional, defaults to false
+          showEpisodeNumber: true # optional, defaults to false
+          expandOneStreamToTwoRows: false # optional, defaults to true
+    - JellyFin:
+        icon: jellyfin.png
+        href: https://jelly.sleepingpandaind.com/
+        description: SleepingServer JellyFin
+        # server: unraid-server
+        # container: binhex-jellyfin
+        # statusStyle: dot
+        widget:
+          type: jellyfin
+          url: http://10.10.10.122:8096
+          key: {{HOMEPAGE_VAR_JELLYFIN_API_KEY}}
+          enableBlocks: true # optional, defaults to false
+          enableNowPlaying: true # optional, defaults to true
+          enableUser: true # optional, defaults to false
+          showEpisodeNumber: true # optional, defaults to false
+          expandOneStreamToTwoRows: false # optional, defaults to true
+          fields: ["movies", "series", "episodes", "songs"]
+    - Audiobookshelf:
+        icon: audiobookshelf.png
+        href: https://jelly.sleepingpandaind.com/
+        description: SleepingServer Audiobookshelf
+        # server: unraid-server
+        # container: audiobookshelf
+        # statusStyle: dot
+        widget:
+          type: audiobookshelf
+          url: http://{{HOMEPAGE_VAR_UNRAID_IP_ADDR}}:13378/
+          key: {{HOMEPAGE_VAR_AUDIOBOOKSHELF_API_KEY}}
+          fields: ["podcasts", "podcastsDuration", "books", "booksDuration"]
+
+- Dahl Home ARR:
+    - Sonarr:
+        icon: sonarr.png
+        href: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:8990/
+        description: Sonarr Server 
+        server: arr-docker
+        container: sonarr2
+        statusStyle: "dot"
+        widget:
+          type: sonarr
+          url: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:8990/
+          key: "{{HOMEPAGE_VAR_SONARR_API_KEY}}"
+          enableQueue: false # optional, defaults to false
+    - Radarr:
+        icon: radarr.png
+        href: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:7878/
+        description: Radarr Server
+        container: radarr
+        server: arr-docker
+        statusStyle: dot
+        widget:
+          type: radarr
+          url: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:7878/
+          key: "{{HOMEPAGE_VAR_RADARR_API_KEY}}"
+          enableQueue: false # optional, defaults to false
+    - Overseerr:
+        icon: overseerr.png
+        href: https://overseerr.sleepingpandaind.com/
+        description: Overseerr Server
+        server: arr-docker
+        container: overseerr
+        statusStyle: dot
+        widget:
+          type: overseerr
+          url: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:5055
+          key: "{{HOMEPAGE_VAR_OVERSEERR_API_KEY}}"
+          enableLeechProgress: false # optional, defaults to false  	
+    - Prowlarr:
+        icon: prowlarr.png
+        href: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:9696/
+        description: Prowlarr Server
+        container: prowlarr
+        server: arr-docker
+        statusStyle: dot
+        widget:
+          type: prowlarr
+          url: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:9696/
+          key: "{{HOMEPAGE_VAR_PROWLARR_API_KEY}}"
+    - Bazarr:
+        icon: bazarr.png
+        href: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:6767/
+        description: Bazarr Server
+        server: arr-docker
+        container: bazarr
+        statusStyle: dot
+        widget:
+          type: bazarr
+          url: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:6767
+          key: "{{HOMEPAGE_VAR_BAZARR_API_KEY}}"
+    # - Whisparr:
+    #     icon: whisparr.png
+    #     href: http://10.10.10.75:6969
+    #     description: Whisparr Server 
+    #     server: arr-docker
+    #     container: whisparr
+    #     statusStyle: dot
+    #     widget:
+    #       type: sonarr
+    #       url: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:6969
+    #       key: {{HOMEPAGE_VAR_WHISPARR_API_KEY}}
+    #       enableQueue: false # optional, defaults to false
+    - wizarr:
+        icon: https://github.com/wizarrrr/wizarr/raw/main/app/static/wizarr-logo.png
+        href: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:6767/
+        description: Bazarr Server
+        server: arr-docker
+        container: wizarr
+        statusStyle: dot
+        # widget:
+        #   type: bazarr
+        #   url: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:6767
+        #   key: "{{HOMEPAGE_VAR_BAZARR_API_KEY}}"
+    - Readarr:
+        icon: readarr.png
+        href: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:8787/
+        description: Readarr Server
+        server: arr-docker
+        container: readarr
+        statusStyle: dot
+        widget:
+          type: readarr
+          url: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:8787
+          key: "{{HOMEPAGE_VAR_READARR_API_KEY}}"
+    - Lidarr:
+        icon: lidarr.png
+        href: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:8787/
+        description: Lidarr Server
+        server: arr-docker
+        container: lidarr
+        statusStyle: dot
+        widget:
+          type: lidarr
+          url: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:8787
+          key: "{{HOMEPAGE_VAR_LIDARR_API_KEY}}"
+
+- Dahl Home Download:
+    - qBittorrent:
+        icon: qbittorrent.png
+        href: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:8080/
+        description: qBittorrent Server
+        server: arr-docker
+        container: qbittorrent
+        statusStyle: dot
+        widget:
+          type: qbittorrent
+          url: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:8080
+          username: "{{HOMEPAGE_VAR_qbittorrent_USERNAME}}"
+          password: "{{HOMEPAGE_VAR_qbittorrent_PASSWORD}}"
+          enableLeechProgress: false # optional, defaults to false  	
+    - NZBget:
+        icon: nzbget.png
+        href: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:6789/
+        description: Bazarr Server
+        server: arr-docker
+        container: nzbget2
+        statusStyle: dot
+        widget:
+          type: nzbget
+          url: http://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:6789/
+          username: {{HOMEPAGE_VAR_NZBGET_USERNAME}}
+          password: {{HOMEPAGE_VAR_NZBGET_PASSWORD}}
+
+- Server Manage:
+    # - r630:
+    #     icon: proxmox.png
+    #     href: https://10.10.10.165:8006/
+    #     widget:
+    #       type: proxmox
+    #       url: https://10.10.10.165:8006
+    #       username: {{HOMEPAGE_VAR_r630_API_KEY_TOKEN_ID}}
+    #       password: {{HOMEPAGE_VAR_r630_API_KEY_TOKEN_SECRET}}
+    #       # node: prox1 # optional
+    - r730xd:
+        icon: proxmox.png
+        href: https://10.10.10.82:8006/
+        widget:
+          type: proxmox
+          url: https://10.10.10.82:8006/
+          username: {{HOMEPAGE_VAR_r730xd_UNRAID_API_KEY_TOKEN_ID}}
+          password: {{HOMEPAGE_VAR_r730xd_UNRAID_API_KEY_TOKEN_SECRET}}
+          node: prox # optional
+    - Unraid {{HOMEPAGE_VAR_UNRAID_IP_ADDR}}:
+        icon: unraid.png
+        href: http://{{HOMEPAGE_VAR_UNRAID_IP_ADDR}}
+        widgets:
+          - type: customapi
+            url: http://{{HOMEPAGE_VAR_UNRAID_IP_ADDR}}:24940
+            method: GET # this doesn't matter
+            mappings:
+              - field:
+                  array: # or cache
+                    2: free 
+                    # '0' is the index of the disk, 0 = the first 
+                    # 'free' is the field you wish to read
+                label: Plex Media
+                format: number
+                suffix: GiB
+              # - field:
+              #     network_total: rx_MiBs
+              #   label: rx
+              #   format: float
+              #   suffix: MiB/s
+              # - field:
+              #     network_total: tx_MiBs
+              #   label: tx
+              #   format: float
+              #   suffix: MiB/s
+              - field:
+                  cpu: temp # or temp
+                label: CPU TEMP
+                suffix: °C
+                format: number # or number
+              - field:
+                  cpu: load_percent # or temp
+                label: CPU LOAD
+                format: percent # or number
+          - type: customapi
+            url: http://{{HOMEPAGE_VAR_PLEX_IP_ADDR}}:24940
+            method: GET # this doesn't matter
+            mappings:
+              - field:
+                  network_total: rx_MiBs
+                label: rx
+                format: float
+                suffix: MiB/s
+              - field:
+                  network_total: tx_MiBs
+                label: tx
+                format: float
+                suffix: MiB/s
+- Portainer:
+    - Portainer VaultWarden:
+            icon: si-portainer-#13BEF9
+            href: https://18.144.137.141:9443/
+            description: Portainer
+    - Portainer Media Server:
+            icon: si-portainer-#13BEF9
+            href: https://{{HOMEPAGE_VAR_ARR_IP_ADDR}}:9443/
+            description: Portainer
+            server: arr-docker
+            container: portainer
+            statusStyle: dot
+            widget:
+              type: portainer
+              url: https://10.10.10.75:9443
+              env: 3
+              key: {{HOMEPAGE_VAR_PORTAINERARR_API_KEY}}
+# - My First Group:
+#     - My First :
+#         href: http://localhost/
+#         description: Homepage is awesome
+
+# - My Second Group:
+#     - My Second Service:
+#         href: http://localhost/
+#         description: Homepage is the best
+
+# - My Third Group:
+#     - My Third Service:
+#         href: http://localhost/
+#         description: Homepage is 😎
